@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koperasi PIJAR LARE BLAMBANGAN — Portal Koperasi Digital</title>
+<meta name="description" content="Portal digital Koperasi PIJAR LARE BLAMBANGAN (eks. KOPERLIN) Banyuwangi. Laporan keuangan, data anggota, pinjaman, dan kegiatan koperasi.">
+<style>
+:root{
+  --primary:#1e3a8a; --primary-dark:#172554; --primary-light:#2563eb;
+  --accent:#facc15; --accent-dark:#ca8a04;
+  --success:#16a34a; --danger:#dc2626; --warning:#f59e0b; --info:#0891b2;
+  --bg:#f1f5f9; --card:#ffffff; --border:#e2e8f0; --text:#1e293b; --muted:#64748b; --light:#f8fafc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px}
+a{color:var(--primary-light);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+.row{display:flex;flex-wrap:wrap;gap:16px}
+.col{flex:1;min-width:0}
+
+/* ===== Header ===== */
+.topbar{background:var(--primary-dark);color:#cbd5e1;font-size:13px;padding:6px 0}
+.topbar .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.topbar a{color:#e0e7ff}
+header.main{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+header.main .container{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo{width:48px;height:48px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--primary-dark);font-size:20px;flex-shrink:0}
+.brand-text h1{font-size:18px;line-height:1.2;font-weight:700}
+.brand-text p{font-size:11px;opacity:.85;margin-top:2px}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main a{color:#dbeafe;padding:8px 12px;border-radius:6px;font-size:14px;font-weight:500}
+nav.main a:hover{background:rgba(255,255,255,.12);text-decoration:none}
+nav.main a.active{background:var(--accent);color:var(--primary-dark)}
+.user-box{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-primary{background:var(--accent);color:var(--primary-dark)}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-blue{background:var(--primary-light);color:#fff}
+.btn-blue:hover{background:var(--primary)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-success{background:var(--success);color:#fff}
+.btn-sm{padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.badge-admin{background:#fef3c7;color:#92400e}
+.badge-bendahara{background:#dbeafe;color:#1e40af}
+.badge-pengurus{background:#e0e7ff;color:#3730a3}
+.badge-pengawas{background:#f3e8ff;color:#6b21a8}
+.badge-anggota{background:#d1fae5;color:#065f46}
+
+/* ===== Hero ===== */
+.hero{background:linear-gradient(135deg,var(--primary) 0%,#0f172a 100%);color:#fff;padding:60px 0;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-50px;top:-50px;width:300px;height:300px;background:var(--accent);opacity:.08;border-radius:50%}
+.hero::after{content:"";position:absolute;left:-100px;bottom:-100px;width:400px;height:400px;background:var(--primary-light);opacity:.1;border-radius:50%}
+.hero .container{position:relative;z-index:1}
+.hero h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:14px;line-height:1.15}
+.hero p{font-size:clamp(1rem,2vw,1.15rem);opacity:.92;max-width:640px;margin-bottom:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:32px;max-width:760px}
+.hero-stat{background:rgba(255,255,255,.1);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);padding:16px;border-radius:10px}
+.hero-stat .num{font-size:24px;font-weight:800;color:var(--accent)}
+.hero-stat .lbl{font-size:12px;opacity:.85;margin-top:2px}
+
+/* ===== Sections ===== */
+section.page{display:none;padding:32px 0;min-height:60vh}
+section.page.active{display:block}
+.section-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:var(--primary-dark);margin-bottom:6px}
+.section-sub{color:var(--muted);margin-bottom:24px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card h3{color:var(--primary-dark);font-size:18px;margin-bottom:12px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+
+/* ===== Tables ===== */
+.table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--border);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--primary);color:#fff;text-align:left;padding:10px 12px;font-weight:600;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+tr:nth-child(even) td{background:var(--light)}
+tr:hover td{background:#fef9c3}
+.table-fin th{background:#1e40af}
+.table-fin td.num,.table-fin th.num{text-align:right;font-variant-numeric:tabular-nums}
+.text-right{text-align:right}
+.text-success{color:var(--success);font-weight:600}
+.text-danger{color:var(--danger);font-weight:600}
+.text-muted{color:var(--muted)}
+
+/* ===== Forms ===== */
+.form-group{margin-bottom:14px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:5px;color:var(--text)}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.form-row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ===== Modal ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:12px;max-width:440px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-header{background:var(--primary);color:#fff;padding:16px 20px;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-header h3{font-size:17px}
+.modal-close{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;line-height:1}
+.modal-body{padding:20px}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto;flex-wrap:nowrap}
+.tab{padding:10px 16px;cursor:pointer;border:none;background:none;font-size:14px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;font-family:inherit}
+.tab:hover{color:var(--primary)}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ===== Toast ===== */
+#toast{position:fixed;bottom:20px;right:20px;z-index:2000;display:flex;flex-direction:column;gap:8px}
+.toast{background:#1e293b;color:#fff;padding:12px 18px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.2);font-size:14px;max-width:340px;animation:slideIn .25s}
+.toast.success{background:var(--success)}
+.toast.error{background:var(--danger)}
+.toast.info{background:var(--info)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ===== Org chart ===== */
+.org-tree{display:flex;flex-direction:column;align-items:center;gap:20px;padding:20px 0}
+.org-node{background:#fff;border:2px solid var(--primary);border-radius:10px;padding:14px 20px;text-align:center;min-width:200px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.org-node .role{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.org-node .name{font-size:16px;font-weight:700;color:var(--primary-dark);margin-top:4px}
+.org-node .badge-pos{display:inline-block;margin-top:6px;padding:2px 8px;background:var(--accent);color:var(--primary-dark);border-radius:10px;font-size:11px;font-weight:700}
+.org-connector{width:2px;height:20px;background:var(--primary-light)}
+.org-row{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+
+/* ===== Charts ===== */
+.chart-wrap{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+.chart-wrap canvas{max-width:100%}
+
+/* ===== Stats card (dashboard) ===== */
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;align-items:center;gap:14px}
+.stat-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;flex-shrink:0}
+.stat-icon.blue{background:var(--primary-light)}
+.stat-icon.green{background:var(--success)}
+.stat-icon.yellow{background:var(--accent);color:var(--primary-dark)}
+.stat-icon.red{background:var(--danger)}
+.stat-icon.purple{background:#7c3aed}
+.stat-card .val{font-size:20px;font-weight:700;color:var(--text)}
+.stat-card .lbl{font-size:12px;color:var(--muted)}
+
+/* ===== Activity list ===== */
+.activity-item{display:flex;gap:12px;padding:14px;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-date{background:var(--primary);color:#fff;border-radius:8px;padding:6px 10px;text-align:center;min-width:54px;flex-shrink:0}
+.activity-date .d{font-size:18px;font-weight:700;line-height:1}
+.activity-date .m{font-size:10px;text-transform:uppercase}
+.activity-body h4{font-size:15px;color:var(--primary-dark);margin-bottom:3px}
+.activity-body p{font-size:13px;color:var(--muted)}
+
+/* ===== Footer ===== */
+footer{background:var(--primary-dark);color:#cbd5e1;padding:40px 0 20px;margin-top:40px}
+footer .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-bottom:24px}
+footer h4{color:#fff;font-size:15px;margin-bottom:12px}
+footer p,footer li{font-size:13px;margin-bottom:6px}
+footer ul{list-style:none}
+footer a{color:#cbd5e1}
+footer a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;text-align:center;font-size:12px;opacity:.8}
+
+/* ===== Lock / role gate ===== */
+.role-gate{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:30px;text-align:center;color:#9a3412}
+.role-gate h3{color:#9a3412;font-size:18px;margin-bottom:8px}
+.role-gate p{color:#c2410c;margin-bottom:12px}
+.hidden{display:none!important}
+.tag-demo{background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700;margin-left:8px}
+
+/* ===== Responsive ===== */
+@media (max-width:768px){
+  header.main .container{flex-direction:column;align-items:stretch}
+  nav.main{justify-content:center;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  nav.main a{padding:8px 10px;font-size:13px}
+  .brand-text h1{font-size:16px}
+  .hero{padding:40px 0}
+  .org-row{flex-direction:column;gap:12px}
+  .form-grid{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .container{padding:0 12px}
+  .modal{margin:8px}
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="container">
+    <span>📍 Jl. Nusantara No. 01, Kampung Melayu, Banyuwangi, Jawa Timur</span>
+    <span>NIK: 3510180040001 · Badan Hukum: 7418/BH/II/1992</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="main">
+  <div class="container">
+    <div class="brand">
+      <div class="brand-logo">PLB</div>
+      <div class="brand-text">
+        <h1>Koperasi PIJAR LARE BLAMBANGAN</h1>
+        <p>Portal Digital Koperasi · Banyuwangi (eks. KOPERLIN)</p>
+      </div>
+    </div>
+    <nav class="main" id="mainNav">
+      <a href="#" data-page="beranda" class="active">Beranda</a>
+      <a href="#" data-page="profil">Profil</a>
+      <a href="#" data-page="visi">Visi &amp; Misi</a>
+      <a href="#" data-page="struktur">Pengurus</a>
+      <a href="#" data-page="usaha">Usaha</a>
+      <a href="#" data-page="anggota" data-role="anggota,pengurus,pengawas,bendahara,admin">Anggota</a>
+      <a href="#" data-page="laporan" data-role="anggota,pengurus,pengawas,bendahara,admin">Laporan</a>
+      <a href="#" data-page="input" data-role="bendahara,admin">Input Laporan</a>
+      <a href="#" data-page="kegiatan">Kegiatan</a>
+      <a href="#" data-page="admin" data-role="admin">Admin</a>
+    </nav>
+    <div class="user-box">
+      <button class="btn btn-primary btn-sm" id="btnLogin" onclick="openLogin()">Masuk</button>
+      <div id="userMenu" class="hidden" style="display:flex;align-items:center;gap:10px">
+        <span id="userInfo" style="font-size:13px"></span>
+        <button class="btn btn-ghost btn-sm" onclick="logout()">Keluar</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Pages container — content injected by JS below this point ===== -->
+<main id="pages"></main>
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="loginModalTitle">Masuk Portal Koperasi</h3>
+      <button class="modal-close" onclick="closeLogin()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="loginHint" style="font-size:13px;color:var(--muted);margin-bottom:14px">Gunakan email &amp; kata sandi yang terdaftar. Akun demo tersedia di bawah untuk uji coba.</p>
+      <div class="form-group" id="namaGroup" style="display:none">
+        <label>Nama Lengkap</label>
+        <input type="text" id="loginNama" placeholder="contoh: Jumadi">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="email@koperasi.id" value="">
+      </div>
+      <div class="form-group">
+        <label>Kata Sandi</label>
+        <input type="password" id="loginPass" placeholder="•••••••• (min. 6 karakter)">
+      </div>
+      <div id="loginError" style="color:var(--danger);font-size:13px;margin-bottom:10px"></div>
+      <button class="btn btn-primary" style="width:100%" id="loginBtn" onclick="login()">Masuk</button>
+      <div style="margin-top:12px;text-align:center;font-size:13px" id="toggleSignup">
+        Belum punya akun? <a href="#" onclick="toggleSignupMode(true);return false" style="font-weight:600">Daftar baru</a>
+      </div>
+      <div id="demoBox" style="margin-top:16px;padding:12px;background:var(--light);border-radius:8px;font-size:12px;color:var(--muted)">
+        <strong>Akun Demo (mode offline):</strong><br>
+        Anggota: anggota@demo.id · Pengurus: pengurus@demo.id<br>
+        Pengawas: pengawas@demo.id · Bendahara: bendahara@demo.id<br>
+        Admin: admin@demo.id<br>
+        <em>Sandi semua akun demo: <code>koperasi123</code></em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="grid-3">
+      <div>
+        <h4>Koperasi PIJAR LARE BLAMBANGAN</h4>
+        <p>Koperasi Karyawan &amp; Pensiunan PLN Banyuwangi. Berdiri 6 Mei 1991, badan hukum 29 September 1992. Anggota: pegawai &amp; pensiunan PLN wilayah Jawa Timur.</p>
+      </div>
+      <div>
+        <h4>Kontak</h4>
+        <ul>
+          <li>📍 Jl. Nusantara No. 01, Kampung Melayu, Banyuwangi</li>
+          <li>🏢 PT PLN (Persero) UP3 Banyuwangi</li>
+          <li>🆔 NIK: 3510180040001</li>
+          <li>📜 BH: 7418/BH/II/1992</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Akses</h4>
+        <ul>
+          <li><a href="#" onclick="nav('beranda');return false">Beranda</a></li>
+          <li><a href="#" onclick="nav('profil');return false">Profil Koperasi</a></li>
+          <li><a href="#" onclick="nav('laporan');return false">Laporan Keuangan</a></li>
+          <li><a href="#" onclick="openLogin();return false">Masuk Anggota</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Koperasi PIJAR LARE BLAMBANGAN · Portal Digital Koperasi · Dibangun dengan Supabase + Vercel
+    </div>
+  </div>
+</footer>
+
+<!-- Supabase + Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<script>
+/* ============================================================
+   CONFIG — isi dengan kredensial Supabase Anda (lihat panduan)
+   Biarkan placeholder untuk mode DEMO (data contoh dari laporan Anda)
+============================================================ */
+const SUPABASE_URL = "https://rttklfuahfnxyxbgysgm.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_I7_ASkQ-5D2pV1-SFg6jvQ_KjpE3CVW";
+const IS_LIVE = (SUPABASE_URL.startsWith("http") && !SUPABASE_URL.includes("GANTI"));
+let sb = null;
+if (IS_LIVE) {
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+/* ============================================================
+   DATA DEMO — diisi dari file laporan asli koperasi Anda
+============================================================ */
+const DEMO = {
+  profile: {
+    nama: "Koperasi PIJAR LARE BLAMBANGAN",
+    nama_lama: "KOPERLIN (Koperasi Perusahaan Listrik Negara)",
+    berdiri: "6 Mei 1991",
+    badan_hukum: "7418/BH/II/1992 (29 September 1992)",
+    nik: "3510180040001",
+    alamat: "Jl. Nusantara No. 01, Kel. Kampung Melayu, Kec. Banyuwangi, Kab. Banyuwangi, Jawa Timur",
+    induk: "PT PLN (Persero) UP3 Banyuwangi",
+    notaris: "Raden Dharma Indra Wijaya, S.H., M.Kn.",
+    jumlah_anggota: 98,
+    periode_pengurus: "2024 – 2026",
+    rat_terakhir: "3 November 2026 (Aula Blambangan PT PLN Banyuwangi)"
+  },
+  visi: "Menggalang kerja sama untuk membantu kepentingan ekonomi anggota pada khususnya dan masyarakat pada umumnya dalam rangka pemenuhan kebutuhan.",
+  misi: [
+    "Memajukan kesejahteraan anggota pada khususnya dan masyarakat pada umumnya",
+    "Ikut membangun tatanan perekonomian nasional",
+    "Mewujudkan masyarakat yang maju, adil dan makmur berlandaskan Pancasila dan UUD 1945 seutuhnya"
+  ],
+  tujuan: "Memajukan kesejahteraan anggota dan masyarakat serta ikut membangun tatanan perekonomian nasional.",
+  pengurus: [
+    {jabatan:"Ketua", nama:"Jumadi", unit:"Pengurus"},
+    {jabatan:"Sekretaris", nama:"Satriyo Handoyo", unit:"Pengurus"},
+    {jabatan:"Bendahara", nama:"Heny Amiyati", unit:"Pengurus"}
+  ],
+  pengawas: [
+    {jabatan:"Koordinator", nama:"Abdul Halim", unit:"Pengawas"},
+    {jabatan:"Anggota", nama:"Dwi Marti Susanto", unit:"Pengawas"}
+  ],
+  usaha: [
+    {nama:"Simpanan Pokok & Wajib", desc:"Simpanan wajib anggota sebagai modal koperasi", icon:"💰"},
+    {nama:"Pinjaman Anggota", desc:"Pinjaman dengan jasa rendah untuk anggota (Anggota/TAD/Khusus)", icon:"🏦"},
+    {nama:"PPOB & Pulsa", desc:"Pembayaran tagihan PLN, PDAM, dll + pulsa", icon:"📱"},
+    {nama:"Toko Sembako", desc:"Penyediaan kebutuhan pokok anggota dengan harga koperasi", icon:"🛒"},
+    {nama:"Pengadaan Barang", desc:"Pengadaan barang untuk keperluan anggota & dinas", icon:"📦"},
+    {nama:"Investasi Saham", desc:"Penempatan dana di instrumen saham untuk perolehan keuntungan", icon:"📈"}
+  ],
+  anggota: [
+    {id:"A-001", nama:"Jumadi", unit:"PLN UP3 Banyuwangi", jabatan:"Ketua", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"},
+    {id:"A-002", nama:"Satriyo Handoyo", unit:"PLN UP3 Banyuwangi", jabatan:"Sekretaris", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"},
+    {id:"A-003", nama:"Heny Amiyati", unit:"PLN UP3 Banyuwangi", jabatan:"Bendahara", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"},
+    {id:"A-004", nama:"Abdul Halim", unit:"PLN UP3 Banyuwangi", jabatan:"Pengawas", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"},
+    {id:"A-005", nama:"Dwi Marti Susanto", unit:"PLN UP3 Banyuwangi", jabatan:"Pengawas", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"},
+    {id:"A-006", nama:"Anggota Demo 1", unit:"PLN UP3 Banyuwangi", jabatan:"Anggota", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"},
+    {id:"A-007", nama:"Anggota Demo 2", unit:"Pensiunan PLN", jabatan:"Anggota", simpanan_pokok:250000, simpanan_wajib:5500000, status:"Aktif"}
+  ],
+  shu: {
+    periode: "Januari – Juni 2026",
+    pendapatan: [
+      {uraian:"Pendapatan Bunga Bank", tahun_lalu:358378, tahun_ini:162412},
+      {uraian:"Pendapatan Toko & Pulsa", tahun_lalu:2117100, tahun_ini:2676900},
+      {uraian:"Pendapatan PPOB", tahun_lalu:9115523, tahun_ini:20667657},
+      {uraian:"Pendapatan Keuntungan Saham", tahun_lalu:14000000, tahun_ini:18000000},
+      {uraian:"Pendapatan Pengadaan Barang", tahun_lalu:0, tahun_ini:2738680},
+      {uraian:"Pendapatan Jasa Pinjaman Anggota", tahun_lalu:94880400, tahun_ini:125781250},
+      {uraian:"Pendapatan Sembako", tahun_lalu:2281448, tahun_ini:2380300},
+      {uraian:"Pendapatan Bunga Pinj. Rekanan", tahun_lalu:19500000, tahun_ini:15000000}
+    ],
+    beban: [
+      {uraian:"Biaya Administrasi & Umum", tahun_lalu:-26416050, tahun_ini:-26425850},
+      {uraian:"Biaya Penyusutan Inventaris", tahun_lalu:0, tahun_ini:0},
+      {uraian:"Biaya Jasa Pengurus/Pengawas/Pembina", tahun_lalu:0, tahun_ini:0},
+      {uraian:"Biaya Gaji Pegawai Koperasi", tahun_lalu:-29290984, tahun_ini:-29443923},
+      {uraian:"Biaya Administrasi Bank", tahun_lalu:-224000, tahun_ini:-216000},
+      {uraian:"PPH Final", tahun_lalu:0, tahun_ini:0},
+      {uraian:"Biaya Jasa Pinj. Pihak III", tahun_lalu:0, tahun_ini:-5725000}
+    ],
+    total_pendapatan_lalu:142252849, total_pendapatan_ini:187407199,
+    total_beban_lalu:-55931034, total_beban_ini:-61810773,
+    shu_lalu:86321815, shu_ini:125596426
+  },
+  neraca: {
+    periode: "Januari – Juni 2026",
+    aktiva_lancar: [
+      {uraian:"Kas", lalu:10316508, ini:4495508},
+      {uraian:"Deposit Pulsa & PPOB", lalu:11000000, ini:11000000},
+      {uraian:"Giro Bank Mandiri", lalu:98729598, ini:47046037},
+      {uraian:"Tabungan Bank Syariah Indonesia", lalu:1733997, ini:738355},
+      {uraian:"Piutang Anggota", lalu:1022565000, ini:1133021250},
+      {uraian:"Persediaan Barang Dagangan", lalu:3430750, ini:7772300},
+      {uraian:"Piutang Dinas", lalu:111000000, ini:67500000},
+      {uraian:"Saham", lalu:94440000, ini:94440000},
+      {uraian:"Pendapatan PPOB YMH Ditagih", lalu:7928900, ini:7936170},
+      {uraian:"Piutang Rekanan", lalu:200000000, ini:200000000},
+      {uraian:"Pend. Jasa Rekanan YMH Ditagih", lalu:2500000, ini:2500000},
+      {uraian:"PPH Psl 25 Dibayar Dimuka", lalu:5000000, ini:6565277},
+      {uraian:"Pend. Pengad Brg YMH Ditagih", lalu:0, ini:61014840}
+    ],
+    total_aktiva_lancar_lalu:1568644753, total_aktiva_lancar_ini:1644029737,
+    aktiva_tetap: [
+      {uraian:"Inventaris", lalu:25343500, ini:25343500},
+      {uraian:"Akumulasi Penyusutan Inventaris", lalu:-23925271, ini:-25343500}
+    ],
+    total_aktiva_tetap_lalu:1418229, total_aktiva_tetap_ini:0,
+    total_aktiva_lalu:1570062982, total_aktiva_ini:1644029737,
+    kewajiban_jp: [
+      {uraian:"PPH PS 21 YMH Dibayar", lalu:0, ini:0},
+      {uraian:"Biaya Pengad Barang YMH Dibayar", lalu:0, ini:17376160},
+      {uraian:"Adm Pinjaman", lalu:3985000, ini:3305000},
+      {uraian:"Dana Sosial", lalu:11893509, ini:10824591},
+      {uraian:"Dana Pendidikan", lalu:10801065, ini:12163065},
+      {uraian:"Dana Pembangunan", lalu:694082, ini:0},
+      {uraian:"Utang Lainnya (Titipan Potongan)", lalu:6123293, ini:5261364},
+      {uraian:"Biaya PPOB YMH Dibayar", lalu:3080000, ini:3080000},
+      {uraian:"Pinjaman Pihak III", lalu:75000000, ini:50000000},
+      {uraian:"Simpanan Anggota", lalu:82200000, ini:62700000},
+      {uraian:"Biaya Gaji Pegawai Koperasi YMH Dibayar", lalu:3830000, ini:3850000},
+      {uraian:"Simpanan Sukarela", lalu:118682106, ini:118972106}
+    ],
+    total_kewajiban_lalu:316289055, total_kewajiban_ini:287532286,
+    ekuitas: [
+      {uraian:"Simpanan Pokok", lalu:25000000, ini:24750000},
+      {uraian:"Simpanan Wajib", lalu:500543000, ini:555293000},
+      {uraian:"Donasi", lalu:275573050, ini:275573050},
+      {uraian:"Cadangan", lalu:366336062, ini:375284975},
+      {uraian:"SHU Tahun Berjalan", lalu:86321815, ini:125596426}
+    ],
+    total_ekuitas_lalu:1253773927, total_ekuitas_ini:1356497451
+  },
+  pinjaman: [
+    {bulan:"Januari", kategori:"Anggota", nilai:130000000, tahun:2023},
+    {bulan:"Januari", kategori:"TAD", nilai:39000000, tahun:2023},
+    {bulan:"Januari", kategori:"Khusus", nilai:56000000, tahun:2023},
+    {bulan:"Februari", kategori:"Anggota", nilai:160000000, tahun:2023},
+    {bulan:"Februari", kategori:"TAD", nilai:41000000, tahun:2023},
+    {bulan:"Februari", kategori:"Khusus", nilai:59600000, tahun:2023},
+    {bulan:"Maret", kategori:"Anggota", nilai:135000000, tahun:2023},
+    {bulan:"Maret", kategori:"TAD", nilai:62750000, tahun:2023},
+    {bulan:"Maret", kategori:"Khusus", nilai:84000000, tahun:2023},
+    {bulan:"Januari", kategori:"Anggota", nilai:230000000, tahun:2024},
+    {bulan:"Januari", kategori:"TAD", nilai:23000000, tahun:2024},
+    {bulan:"Januari", kategori:"Khusus", nilai:96700000, tahun:2024},
+    {bulan:"Februari", kategori:"Anggota", nilai:33000000, tahun:2024},
+    {bulan:"Februari", kategori:"TAD", nilai:17000000, tahun:2024},
+    {bulan:"Februari", kategori:"Khusus", nilai:25000000, tahun:2024},
+    {bulan:"Maret", kategori:"Anggota", nilai:43000000, tahun:2024},
+    {bulan:"Maret", kategori:"TAD", nilai:44000000, tahun:2024},
+    {bulan:"Maret", kategori:"Khusus", nilai:17000000, tahun:2024}
+  ],
+  kegiatan: [
+    {tanggal:"2026-11-03", judul:"Rapat Anggota Tahunan (RAT) 2026", desc:"Perubahan Anggaran Dasar & nama koperasi menjadi PIJAR LARE BLAMBANGAN. Aula Blambangan PT PLN Banyuwangi."},
+    {tanggal:"2026-11-10", judul:"Akta Notaris Perubahan AD", desc:"Pernyataan Keputusan Rapat No. 02 di hadapan Notaris Raden Dharma Indra Wijaya."},
+    {tanggal:"2026-06-30", judul:"Laporan Keuangan Semester I 2026", desc:"SHU Jan–Jun 2026: Rp 125.596.426 (naik 45,6% dari 2025)."},
+    {tanggal:"2025-12-20", judul:"Penyaluran SHU Tahun 2025", desc:"Distribusi Sisa Hasil Usaha kepada anggota sesuai keputusan RAT."}
+  ]
+};
+
+/* Demo akun untuk mode offline */
+const DEMO_USERS = {
+  "anggota@demo.id":{password:"koperasi123", role:"anggota", nama:"Anggota Demo", id:"A-006"},
+  "pengurus@demo.id":{password:"koperasi123", role:"pengurus", nama:"Satriyo Handoyo", id:"A-002"},
+  "pengawas@demo.id":{password:"koperasi123", role:"pengawas", nama:"Abdul Halim", id:"A-004"},
+  "bendahara@demo.id":{password:"koperasi123", role:"bendahara", nama:"Heny Amiyati", id:"A-003"},
+  "admin@demo.id":{password:"koperasi123", role:"admin", nama:"Administrator", id:"ADM"}
+};
+
+let currentUser = null;
+</script>
+
+<script>
+/* ============================================================
+   APP — Router, Auth, Page Renderers, Forms, Charts
+============================================================ */
+const $ = (id) => document.getElementById(id);
+const fmtIDR = (n) => {
+  if (n === null || n === undefined || n === "") return "-";
+  const neg = n < 0;
+  const s = Math.abs(n).toLocaleString("id-ID", {minimumFractionDigits:0, maximumFractionDigits:0});
+  return (neg ? "(Rp " : "Rp ") + s + (neg ? ")" : "");
+};
+const fmtDateID = (d) => {
+  const bln = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+  const dt = new Date(d);
+  return {d: dt.getDate(), m: bln[dt.getMonth()], y: dt.getFullYear(), full: dt.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})};
+};
+function toast(msg, type="info"){
+  const t = document.createElement("div");
+  t.className = "toast " + type;
+  t.textContent = msg;
+  $("toast").appendChild(t);
+  setTimeout(() => { t.style.opacity="0"; t.style.transition="opacity .3s"; setTimeout(()=>t.remove(),300); }, 3500);
+}
+
+/* ---------- Routing ---------- */
+function nav(page){
+  document.querySelectorAll("nav.main a").forEach(a => a.classList.remove("active"));
+  const navLink = document.querySelector(`nav.main a[data-page="${page}"]`);
+  if (navLink) navLink.classList.add("active");
+  // role gate
+  if (navLink && navLink.dataset.role){
+    const roles = navLink.dataset.role.split(",");
+    if (!currentUser || !roles.includes(currentUser.role)){
+      renderPage("gate");
+      window.scrollTo(0,0);
+      return;
+    }
+  }
+  renderPage(page);
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("nav.main a[data-page]").forEach(a => {
+  a.addEventListener("click", (e) => { e.preventDefault(); nav(a.dataset.page); });
+});
+
+/* ---------- Auth ---------- */
+function openLogin(){
+  $("loginModal").classList.add("show");
+  $("loginError").textContent = "";
+  toggleSignupMode(false);
+}
+function closeLogin(){ $("loginModal").classList.remove("show"); }
+
+function toggleSignupMode(signup){
+  const isSignup = signup;
+  $("loginModalTitle").textContent = isSignup ? "Daftar Akun Baru" : "Masuk Portal Koperasi";
+  $("loginHint").textContent = isSignup
+    ? "Daftarkan email Anda. Peran default: Anggota (admin dapat menaikkan peran kemudian)."
+    : "Gunakan email & kata sandi yang terdaftar. Akun demo tersedia di bawah untuk uji coba.";
+  $("namaGroup").style.display = isSignup ? "" : "none";
+  $("loginBtn").textContent = isSignup ? "Daftar" : "Masuk";
+  $("loginBtn").setAttribute("onclick", isSignup ? "signup()" : "login()");
+  $("toggleSignup").innerHTML = isSignup
+    ? 'Sudah punya akun? <a href="#" onclick="toggleSignupMode(false);return false" style="font-weight:600">Masuk</a>'
+    : 'Belum punya akun? <a href="#" onclick="toggleSignupMode(true);return false" style="font-weight:600">Daftar baru</a>';
+  $("demoBox").style.display = isSignup ? "none" : "";
+  $("loginError").textContent = "";
+}
+
+async function signup(){
+  const email = $("loginEmail").value.trim().toLowerCase();
+  const pass = $("loginPass").value;
+  const nama = $("loginNama").value.trim();
+  $("loginError").textContent = "";
+  if (!email || !pass || !nama){ $("loginError").textContent = "Nama, email, dan kata sandi wajib diisi."; return; }
+  if (pass.length < 6){ $("loginError").textContent = "Kata sandi minimal 6 karakter."; return; }
+  if (!IS_LIVE || !sb){
+    $("loginError").textContent = "Pendaftaran hanya tersedia saat website terhubung ke Supabase (mode LIVE).";
+    return;
+  }
+  try {
+    const { data, error } = await sb.auth.signUp({
+      email, password: pass,
+      options: { data: { nama: nama, role: "anggota" } }
+    });
+    if (error) throw error;
+    if (data.user && !data.session){
+      // Email confirmation required
+      $("loginError").style.color = "var(--success)";
+      $("loginError").textContent = "Pendaftaran berhasil! Cek email Anda untuk verifikasi, lalu masuk. Setelah masuk, minta admin menetapkan peran Anda.";
+      toast("Cek email untuk verifikasi akun.", "success");
+    } else if (data.session){
+      // Auto-logged in (email confirmation disabled)
+      const { data: prof } = await sb.from("profiles").select("*").eq("id", data.user.id).single();
+      currentUser = { id: data.user.id, email, role: prof?.role || "anggota", nama: prof?.nama || nama };
+      postLogin();
+      toast("Pendaftaran berhasil! Peran Anda: Anggota. Minta admin menaikkan peran jika perlu.", "success");
+    }
+  } catch (err) {
+    $("loginError").textContent = "Gagal daftar: " + (err.message || "kesalahan tidak diketahui");
+  }
+}
+
+async function login(){
+  const email = $("loginEmail").value.trim().toLowerCase();
+  const pass = $("loginPass").value;
+  $("loginError").textContent = "";
+  if (!email || !pass){ $("loginError").textContent = "Email dan kata sandi wajib diisi."; return; }
+
+  if (IS_LIVE && sb){
+    try {
+      const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+      if (error) throw error;
+      // fetch profile
+      const { data: prof } = await sb.from("profiles").select("*").eq("id", data.user.id).single();
+      currentUser = { id: data.user.id, email, role: prof?.role || "anggota", nama: prof?.nama || email };
+      postLogin();
+    } catch (err) {
+      $("loginError").textContent = "Gagal masuk: " + (err.message || "kesalahan tidak diketahui");
+    }
+  } else {
+    // Demo mode
+    const u = DEMO_USERS[email];
+    if (!u || u.password !== pass){
+      $("loginError").textContent = "Email atau kata sandi salah (mode demo). Lihat akun demo di bawah.";
+      return;
+    }
+    currentUser = { id: u.id, email, role: u.role, nama: u.nama };
+    postLogin();
+  }
+}
+
+function postLogin(){
+  closeLogin();
+  updateUserUI();
+  toast("Selamat datang, " + currentUser.nama + "!", "success");
+  nav("beranda");
+}
+
+function logout(){
+  currentUser = null;
+  if (IS_LIVE && sb) sb.auth.signOut();
+  updateUserUI();
+  nav("beranda");
+  toast("Anda telah keluar.", "info");
+}
+
+function updateUserUI(){
+  $("btnLogin").classList.toggle("hidden", !!currentUser);
+  $("userMenu").classList.toggle("hidden", !currentUser);
+  if (currentUser){
+    const roleLabel = {admin:"Admin", bendahara:"Bendahara", pengurus:"Pengurus", pengawas:"Pengawas", anggota:"Anggota"}[currentUser.role];
+    $("userInfo").innerHTML = `👋 ${currentUser.nama} <span class="badge badge-${currentUser.role}">${roleLabel}</span>` + (!IS_LIVE ? '<span class="tag-demo">DEMO</span>' : '');
+  }
+  // refresh nav visibility
+  document.querySelectorAll("nav.main a[data-role]").forEach(a => {
+    const roles = a.dataset.role.split(",");
+    const ok = currentUser && roles.includes(currentUser.role);
+    a.style.display = ok ? "" : "none";
+  });
+}
+
+/* ---------- Page Renderer ---------- */
+function renderPage(page){
+  const p = $("pages");
+  let html = "";
+  switch(page){
+    case "beranda": html = pageBeranda(); break;
+    case "profil": html = pageProfil(); break;
+    case "visi": html = pageVisi(); break;
+    case "struktur": html = pageStruktur(); break;
+    case "usaha": html = pageUsaha(); break;
+    case "anggota": html = pageAnggota(); break;
+    case "laporan": html = pageLaporan(); break;
+    case "input": html = pageInput(); break;
+    case "kegiatan": html = pageKegiatan(); break;
+    case "admin": html = pageAdmin(); break;
+    case "gate": html = pageGate(); break;
+    default: html = pageBeranda();
+  }
+  p.innerHTML = html;
+  // post-render hooks
+  if (page === "laporan") renderCharts();
+  if (page === "beranda") renderCharts();
+}
+
+/* ---------- Page: Beranda ---------- */
+function pageBeranda(){
+  const totalAktiva = DEMO.neraca.total_aktiva_ini;
+  const shu = DEMO.shu.shu_ini;
+  const simpanan = DEMO.neraca.ekuitas.reduce((s,e)=>s+e.ini,0);
+  const pinjamanTotal = DEMO.pinjaman.filter(p=>p.tahun===2024).reduce((s,p)=>s+p.nilai,0);
+  return `
+  <section class="page active" id="p-beranda">
+    <div class="hero">
+      <div class="container">
+        <h2>Portal Digital Koperasi PIJAR LARE BLAMBANGAN</h2>
+        <p>Koperasi Karyawan &amp; Pensiunan PLN Banyuwangi. Transparansi laporan keuangan, data anggota, dan layanan koperasi dalam satu platform.</p>
+        <div class="row" style="gap:10px">
+          <button class="btn btn-primary" onclick="nav('laporan')">Lihat Laporan Keuangan</button>
+          <button class="btn btn-ghost" onclick="nav('profil')">Profil Koperasi</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">${DEMO.profile.jumlah_anggota}</div><div class="lbl">Anggota Terdaftar</div></div>
+          <div class="hero-stat"><div class="num">${fmtIDR(totalAktiva)}</div><div class="lbl">Total Aktiva (Jun 2026)</div></div>
+          <div class="hero-stat"><div class="num">${fmtIDR(shu)}</div><div class="lbl">SHU Jan–Jun 2026</div></div>
+          <div class="hero-stat"><div class="num">${fmtIDR(simpanan)}</div><div class="lbl">Total Modal Sendiri</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="padding-top:32px">
+      <div class="grid-2">
+        <div class="card">
+          <h3>📊 Ringkasan Keuangan Semester I 2026</h3>
+          <div class="chart-wrap"><canvas id="chartBerandaSHU" height="180"></canvas></div>
+          <p style="font-size:13px;color:var(--muted);margin-top:8px">SHU Jan–Jun 2026 naik <strong class="text-success">+45,6%</strong> dibanding periode sama tahun lalu.</p>
+        </div>
+        <div class="card">
+          <h3>📋 Kegiatan Terbaru</h3>
+          ${DEMO.kegiatan.slice(0,3).map(k => {
+            const dt = fmtDateID(k.tanggal);
+            return `<div class="activity-item">
+              <div class="activity-date"><div class="d">${dt.d}</div><div class="m">${dt.m}</div></div>
+              <div class="activity-body"><h4>${k.judul}</h4><p>${k.desc}</p></div>
+            </div>`;
+          }).join("")}
+          <button class="btn btn-blue btn-sm" style="margin-top:12px" onclick="nav('kegiatan')">Lihat semua kegiatan →</button>
+        </div>
+      </div>
+      <h3 class="section-title" style="margin-top:32px">Unit Usaha Koperasi</h3>
+      <p class="section-sub">Layanan yang dikelola koperasi untuk pemenuhan kebutuhan anggota</p>
+      <div class="card-grid">
+        ${DEMO.usaha.map(u => `
+          <div class="card">
+            <div style="font-size:32px">${u.icon}</div>
+            <h3 style="margin-top:8px">${u.nama}</h3>
+            <p style="font-size:13px;color:var(--muted)">${u.desc}</p>
+          </div>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Profil ---------- */
+function pageProfil(){
+  const p = DEMO.profile;
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Profil Koperasi</h2>
+      <p class="section-sub">Identitas resmi Koperasi PIJAR LARE BLAMBANGAN</p>
+      <div class="card">
+        <table>
+          <tr><th style="width:240px">Nama Koperasi</th><td><strong>${p.nama}</strong></td></tr>
+          <tr><th>Nama Sebelumnya</th><td>${p.nama_lama}</td></tr>
+          <tr><th>Tanggal Berdiri</th><td>${p.berdiri}</td></tr>
+          <tr><th>Badan Hukum</th><td>${p.badan_hukum}</td></tr>
+          <tr><th>Nomor Induk Koperasi (NIK)</th><td>${p.nik}</td></tr>
+          <tr><th>Alamat</th><td>${p.alamat}</td></tr>
+          <tr><th>Induk Organisasi</th><td>${p.induk}</td></tr>
+          <tr><th>Notaris Pembuat Akta</th><td>${p.notaris}</td></tr>
+          <tr><th>Jumlah Anggota</th><td>${p.jumlah_anggota} orang (pegawai &amp; pensiunan PLN)</td></tr>
+          <tr><th>Periode Pengurus</th><td>${p.periode_pengurus}</td></tr>
+          <tr><th>RAT Terakhir</th><td>${p.rat_terakhir}</td></tr>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>Dasar Hukum &amp; Pengesahan</h3>
+        <p style="font-size:14px;line-height:1.7">
+          Koperasi ini didirikan pada 6 Mei 1991 dengan akta pendirian Koperasi Karyawan Perusahaan Umum Listrik Negara Banyuwangi,
+          dan memperoleh pengesahan dari Menteri Koperasi dan Pembinaan Pengusaha Kecil Republik Indonesia tertanggal 10 Juli 1995
+          (No. 719/KEP/M/VII/1995). Perubahan Anggaran Dasar pertama dilakukan 29 September 1992, dengan pengesahan 10 Juni 1997
+          (No. 1364/PAD/KWK.13/VI/1997). Perubahan terakhir dilakukan melalui Akta Pernyataan Keputusan Rapat No. 26 tertanggal
+          24 November 2026, diresmikan Kementerian Hukum dan HAM RI tanggal 25 November 2020
+          (No. AHU-0001334.AH.01.27.TAHUN 2020), yang mengubah nama menjadi PIJAR LARE BLAMBANGAN.
+        </p>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Visi & Misi ---------- */
+function pageVisi(){
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Visi, Misi &amp; Tujuan</h2>
+      <p class="section-sub">Arah dan tujuan koperasi sebagaimana tertuang dalam Anggaran Dasar Bab I Bagian Ketiga</p>
+      <div class="grid-2">
+        <div class="card" style="border-left:5px solid var(--accent)">
+          <h3>🎯 Visi</h3>
+          <p style="font-size:16px;line-height:1.7">${DEMO.visi}</p>
+        </div>
+        <div class="card" style="border-left:5px solid var(--primary-light)">
+          <h3>🚩 Misi</h3>
+          <ol style="padding-left:20px;font-size:15px;line-height:1.8">
+            ${DEMO.misi.map(m => `<li>${m}</li>`).join("")}
+          </ol>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;border-left:5px solid var(--success)">
+        <h3>📐 Tujuan</h3>
+        <p style="font-size:15px;line-height:1.7">${DEMO.tujuan}</p>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>📖 Landasan Koperasi</h3>
+        <p style="font-size:14px;line-height:1.7">
+          Koperasi PIJAR LARE BLAMBANGAN berlandaskan <strong>Pancasila</strong> dan <strong>UUD 1945</strong>,
+          menjalankan prinsip-prinsip koperasi: keanggotaan sukarela &amp; terbuka, pengelolaan demokratis,
+          partisipasi ekonomi anggota, otonomi &amp; kemandirian, pendidikan koperasi, serta kerja sama antar-koperasi.
+        </p>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Struktur Pengurus ---------- */
+function pageStruktur(){
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Struktur Pengurus &amp; Pengawas</h2>
+      <p class="section-sub">Periode ${DEMO.profile.periode_pengurus} — hasil Rapat Anggota Tahunan 3 November 2026</p>
+      <div class="card">
+        <div class="org-tree">
+          <div class="org-node">
+            <div class="role">Rapat Anggota Tahunan</div>
+            <div class="name">Pemegang Kekuasaan Tertinggi</div>
+            <div class="badge-pos">98 Anggota</div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-row">
+            <div class="org-node">
+              <div class="role">Pengurus — Ketua</div>
+              <div class="name">Jumadi</div>
+            </div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-row">
+            <div class="org-node">
+              <div class="role">Sekretaris</div>
+              <div class="name">Satriyo Handoyo</div>
+            </div>
+            <div class="org-node">
+              <div class="role">Bendahara</div>
+              <div class="name">Heny Amiyati</div>
+            </div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-row">
+            <div class="org-node" style="border-color:var(--success)">
+              <div class="role" style="color:var(--success)">Badan Pengawas — Koordinator</div>
+              <div class="name">Abdul Halim</div>
+            </div>
+            <div class="org-node" style="border-color:var(--success)">
+              <div class="role" style="color:var(--success)">Badan Pengawas — Anggota</div>
+              <div class="name">Dwi Marti Susanto</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Badan Pengurus</h3>
+          <p style="font-size:14px;line-height:1.6">Mengelola koperasi sehari-hari: kebijakan operasional, keputusan usaha, dan pelaksanaan program kerja. Bertanggung jawab kepada Rapat Anggota.</p>
+          <table style="margin-top:12px">
+            <thead><tr><th>Jabatan</th><th>Nama</th></tr></thead>
+            <tbody>${DEMO.pengurus.map(p=>`<tr><td><span class="badge badge-pengurus">${p.jabatan}</span></td><td>${p.nama}</td></tr>`).join("")}</tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Badan Pengawas</h3>
+          <p style="font-size:14px;line-height:1.6">Mengawasi pelaksanaan kebijakan &amp; pengelolaan koperasi, memberi penilaian atas tata kelola, dan mengawasi kepatuhan terhadap AD/ART.</p>
+          <table style="margin-top:12px">
+            <thead><tr><th>Jabatan</th><th>Nama</th></tr></thead>
+            <tbody>${DEMO.pengawas.map(p=>`<tr><td><span class="badge badge-pengawas">${p.jabatan}</span></td><td>${p.nama}</td></tr>`).join("")}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Usaha ---------- */
+function pageUsaha(){
+  const usahaDetail = [
+    {...DEMO.usaha[0], detail:"Simpanan Pokok Rp 250.000 (sekali) + Simpanan Wajib (bulanan). Total Simpanan Wajib per Jun 2026: Rp 555.293.000."},
+    {...DEMO.usaha[1], detail:"Pinjaman dengan 3 kategori: Anggota (karyawan aktif), TAD (tenaga tidak langsung), Khusus. Total penyaluran Jan–Jun 2024: Rp 871.125.000."},
+    {...DEMO.usaha[2], detail:"Pembayaran tagihan PLN, PDAM, BPJS, internet + penjualan pulsa. Pendapatan PPOB Jan–Jun 2026: Rp 20.667.657."},
+    {...DEMO.usaha[3], detail:"Penyediaan kebutuhan pokok dengan harga koperasi. Pendapatan Sembako Jan–Jun 2026: Rp 2.380.300."},
+    {...DEMO.usaha[4], detail:"Pengadaan barang untuk anggota &amp; dinas PLN. Pendapatan Pengadaan Jan–Jun 2026: Rp 2.738.680."},
+    {...DEMO.usaha[5], detail:"Penempatan dana di saham untuk perolehan keuntungan. Pendapatan Keuntungan Saham Jan–Jun 2026: Rp 18.000.000."}
+  ];
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Unit Usaha Koperasi</h2>
+      <p class="section-sub">Sebagaimana diatur dalam Anggaran Dasar Bab I — Pasal 6 (Usaha)</p>
+      <div class="card-grid">
+        ${usahaDetail.map(u => `
+          <div class="card">
+            <div style="font-size:36px">${u.icon}</div>
+            <h3 style="margin-top:10px">${u.nama}</h3>
+            <p style="font-size:14px;color:var(--text);margin-top:6px">${u.desc}</p>
+            <p style="font-size:13px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)">${u.detail}</p>
+          </div>`).join("")}
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>📊 Distribusi Pendapatan Jan–Jun 2026</h3>
+        <div class="chart-wrap"><canvas id="chartUsaha" height="200"></canvas></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Anggota ---------- */
+function pageAnggota(){
+  const canSeeAll = currentUser && ["pengurus","pengawas","bendahara","admin"].includes(currentUser.role);
+  let rows;
+  if (canSeeAll){
+    rows = DEMO.anggota;
+  } else if (currentUser && currentUser.role === "anggota"){
+    rows = DEMO.anggota.filter(a => a.id === currentUser.id);
+  } else {
+    rows = [];
+  }
+  const totalPokok = rows.reduce((s,a)=>s+a.simpanan_pokok,0);
+  const totalWajib = rows.reduce((s,a)=>s+a.simpanan_wajib,0);
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Data Anggota</h2>
+      <p class="section-sub">${canSeeAll ? "Direktori anggota koperasi (akses penuh pengurus/pengawas/bendahara/admin)" : (currentUser ? "Data simpanan Anda sebagai anggota" : "Halaman ini khusus anggota yang sudah login.")}</p>
+      ${!currentUser ? `
+        <div class="role-gate">
+          <h3>🔒 Halaman Khusus Anggota</h3>
+          <p>Silakan masuk dengan akun anggota/pengurus/pengawas/bendahara/admin untuk melihat data anggota.</p>
+          <button class="btn btn-primary" onclick="openLogin()">Masuk Sekarang</button>
+        </div>
+      ` : `
+        <div class="grid-3" style="margin-bottom:16px">
+          <div class="stat-card"><div class="stat-icon blue">👥</div><div><div class="val">${rows.length}</div><div class="lbl">Anggota Ditampilkan</div></div></div>
+          <div class="stat-card"><div class="stat-icon green">💵</div><div><div class="val">${fmtIDR(totalPokok)}</div><div class="lbl">Total Simpanan Pokok</div></div></div>
+          <div class="stat-card"><div class="stat-icon yellow">💰</div><div><div class="val">${fmtIDR(totalWajib)}</div><div class="lbl">Total Simpanan Wajib</div></div></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Nama</th><th>Unit</th><th>Jabatan</th><th class="num">Simpanan Pokok</th><th class="num">Simpanan Wajib</th><th>Status</th></tr></thead>
+            <tbody>
+              ${rows.length ? rows.map(a => `
+                <tr>
+                  <td>${a.id}</td>
+                  <td>${a.nama}</td>
+                  <td>${a.unit}</td>
+                  <td>${a.jabatan}</td>
+                  <td class="num">${fmtIDR(a.simpanan_pokok)}</td>
+                  <td class="num">${fmtIDR(a.simpanan_wajib)}</td>
+                  <td><span class="badge badge-anggota">${a.status}</span></td>
+                </tr>`).join("") : `<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Belum ada data anggota.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      `}
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Laporan ---------- */
+function pageLaporan(){
+  const shu = DEMO.shu, nrc = DEMO.neraca, pj = DEMO.pinjaman;
+  const pj2024 = pj.filter(p=>p.tahun===2024);
+  const pj2023 = pj.filter(p=>p.tahun===2023);
+  const sumBy = (arr, kat) => arr.filter(p=>p.kategori===kat).reduce((s,p)=>s+p.nilai,0);
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Laporan Keuangan</h2>
+      <p class="section-sub">Periode ${shu.periode} — transparansi penuh untuk seluruh anggota</p>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(event,'tab-shu')">Laporan SHU</button>
+        <button class="tab" onclick="switchTab(event,'tab-neraca')">Neraca</button>
+        <button class="tab" onclick="switchTab(event,'tab-pinjaman')">Pinjaman Anggota</button>
+        <button class="tab" onclick="switchTab(event,'tab-grafik')">Grafik &amp; Analisis</button>
+      </div>
+
+      <!-- SHU -->
+      <div class="tab-panel active" id="tab-shu">
+        <div class="card">
+          <h3>Perhitungan Sisa Hasil Usaha (SHU) — ${shu.periode}</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Perbandingan Jan–Jun 2025 vs Jan–Jun 2026 (dalam Rupiah)</p>
+          <div class="table-wrap">
+            <table class="table-fin">
+              <thead><tr><th>No</th><th>Uraian</th><th class="num">Jan–Jun 2025</th><th class="num">Jan–Jun 2026</th><th class="num">Selisih</th></tr></thead>
+              <tbody>
+                <tr><td colspan="5" style="background:#dbeafe;font-weight:700;color:var(--primary-dark)">PENDAPATAN</td></tr>
+                ${shu.pendapatan.map((p,i) => {
+                  const diff = p.tahun_ini - p.tahun_lalu;
+                  return `<tr><td>${i+1}</td><td>${p.uraian}</td><td class="num">${fmtIDR(p.tahun_lalu)}</td><td class="num">${fmtIDR(p.tahun_ini)}</td><td class="num ${diff>=0?'text-success':'text-danger'}">${diff>=0?'+':''}${fmtIDR(diff)}</td></tr>`;
+                }).join("")}
+                <tr style="font-weight:700;background:#fef3c7"><td colspan="2">JUMLAH PENDAPATAN</td><td class="num">${fmtIDR(shu.total_pendapatan_lalu)}</td><td class="num">${fmtIDR(shu.total_pendapatan_ini)}</td><td class="num">${fmtIDR(shu.total_pendapatan_ini-shu.total_pendapatan_lalu)}</td></tr>
+                <tr><td colspan="5" style="background:#fee2e2;font-weight:700;color:#991b1b">BEBAN OPERASIONAL</td></tr>
+                ${shu.beban.map((b,i) => {
+                  const diff = b.tahun_ini - b.tahun_lalu;
+                  return `<tr><td>${i+1}</td><td>${b.uraian}</td><td class="num">${fmtIDR(b.tahun_lalu)}</td><td class="num">${fmtIDR(b.tahun_ini)}</td><td class="num ${diff>=0?'text-danger':'text-success'}">${diff>=0?'+':''}${fmtIDR(diff)}</td></tr>`;
+                }).join("")}
+                <tr style="font-weight:700;background:#fef3c7"><td colspan="2">JUMLAH BEBAN</td><td class="num">${fmtIDR(shu.total_beban_lalu)}</td><td class="num">${fmtIDR(shu.total_beban_ini)}</td><td class="num">${fmtIDR(shu.total_beban_ini-shu.total_beban_lalu)}</td></tr>
+                <tr style="font-weight:700;background:var(--primary);color:#fff"><td colspan="2">SISA HASIL USAHA (SHU)</td><td class="num">${fmtIDR(shu.shu_lalu)}</td><td class="num">${fmtIDR(shu.shu_ini)}</td><td class="num">${fmtIDR(shu.shu_ini-shu.shu_lalu)}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neraca -->
+      <div class="tab-panel" id="tab-neraca">
+        <div class="card">
+          <h3>Neraca — ${nrc.periode}</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Perbandingan posisi keuangan Jan–Jun 2025 vs 2026</p>
+          <div class="table-wrap">
+            <table class="table-fin">
+              <thead><tr><th>No</th><th>AKTIVA</th><th class="num">2025</th><th class="num">2026</th><th style="width:8px;background:var(--primary-dark)"></th><th>No</th><th>KEWAJIBAN &amp; KEKAYAAN</th><th class="num">2025</th><th class="num">2026</th></tr></thead>
+              <tbody>
+                <tr><td colspan="4" style="background:#dbeafe;font-weight:700">AKTIVA LANCAR</td><td style="background:var(--primary-dark)"></td><td colspan="4" style="background:#fee2e2;font-weight:700">KEWAJIBAN JANGKA PENDEK</td></tr>
+                ${(() => {
+                  const al = nrc.aktiva_lancar, kj = nrc.kewajiban_jp;
+                  const max = Math.max(al.length, kj.length);
+                  let html = "";
+                  for (let i=0; i<max; i++){
+                    const a = al[i], k = kj[i];
+                    html += `<tr>
+                      <td>${a?a.i+1||i+1:i+1}</td>
+                      <td>${a?a.uraian:""}</td>
+                      <td class="num">${a?fmtIDR(a.lalu):""}</td>
+                      <td class="num">${a?fmtIDR(a.ini):""}</td>
+                      <td style="background:var(--primary-dark)"></td>
+                      <td>${k?i+1:""}</td>
+                      <td>${k?k.uraian:""}</td>
+                      <td class="num">${k?fmtIDR(k.lalu):""}</td>
+                      <td class="num">${k?fmtIDR(k.ini):""}</td>
+                    </tr>`;
+                  }
+                  html += `<tr style="font-weight:700;background:#fef3c7">
+                    <td colspan="3">Jml Aktiva Lancar</td><td class="num">${fmtIDR(nrc.total_aktiva_lancar_lalu)}</td><td class="num">${fmtIDR(nrc.total_aktiva_lancar_ini)}</td>
+                    <td style="background:var(--primary-dark)"></td>
+                    <td colspan="2">Jml Kewajiban JP</td><td class="num">${fmtIDR(nrc.total_kewajiban_lalu)}</td><td class="num">${fmtIDR(nrc.total_kewajiban_ini)}</td>
+                  </tr>`;
+                  return html;
+                })()}
+                <tr><td colspan="4" style="background:#dbeafe;font-weight:700">AKTIVA TETAP</td><td style="background:var(--primary-dark)"></td><td colspan="4" style="background:#dcfce7;font-weight:700">KEKAYAAN BERSIH (EKUITAS)</td></tr>
+                ${(() => {
+                  const at = nrc.aktiva_tetap, ek = nrc.ekuitas;
+                  const max = Math.max(at.length, ek.length);
+                  let html = "";
+                  for (let i=0; i<max; i++){
+                    const a = at[i], e = ek[i];
+                    html += `<tr>
+                      <td>${a?i+1:""}</td><td>${a?a.uraian:""}</td><td class="num">${a?fmtIDR(a.lalu):""}</td><td class="num">${a?fmtIDR(a.ini):""}</td>
+                      <td style="background:var(--primary-dark)"></td>
+                      <td>${e?i+1:""}</td><td>${e?e.uraian:""}</td><td class="num">${e?fmtIDR(e.lalu):""}</td><td class="num">${e?fmtIDR(e.ini):""}</td>
+                    </tr>`;
+                  }
+                  html += `<tr style="font-weight:700;background:#fef3c7">
+                    <td colspan="3">Jml Aktiva Tetap</td><td class="num">${fmtIDR(nrc.total_aktiva_tetap_lalu)}</td><td class="num">${fmtIDR(nrc.total_aktiva_tetap_ini)}</td>
+                    <td style="background:var(--primary-dark)"></td>
+                    <td colspan="2">Jml Kekayaan Bersih</td><td class="num">${fmtIDR(nrc.total_ekuitas_lalu)}</td><td class="num">${fmtIDR(nrc.total_ekuitas_ini)}</td>
+                  </tr>`;
+                  html += `<tr style="font-weight:700;background:var(--primary);color:#fff">
+                    <td colspan="4">TOTAL AKTIVA</td><td class="num">${fmtIDR(nrc.total_aktiva_lalu)}</td><td class="num">${fmtIDR(nrc.total_aktiva_ini)}</td>
+                    <td style="background:var(--primary-dark)"></td>
+                    <td colspan="3">TOTAL KEWAJIBAN + EKUITAS: ${fmtIDR(nrc.total_kewajiban_ini+nrc.total_ekuitas_ini)}</td>
+                  </tr>`;
+                  return html;
+                })()}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pinjaman -->
+      <div class="tab-panel" id="tab-pinjaman">
+        <div class="card">
+          <h3>Pinjaman Anggota — Perbandingan 2023 vs 2024 (Jan–Jun)</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">3 kategori: Anggota (karyawan aktif), TAD (tenaga tidak langsung), Khusus</p>
+          <div class="table-wrap">
+            <table class="table-fin">
+              <thead><tr><th>Bulan</th><th>Kategori</th><th class="num">2023</th><th class="num">2024</th><th class="num">Selisih</th></tr></thead>
+              <tbody>
+                ${["Januari","Februari","Maret","Apr","Mei","Jun"].map(b => {
+                  return ["Anggota","TAD","Khusus"].map(k => {
+                    const v23 = pj2023.find(p=>p.bulan===b&&p.kategori===k)?.nilai || 0;
+                    const v24 = pj2024.find(p=>p.bulan===b&&p.kategori===k)?.nilai || 0;
+                    if (!v23 && !v24) return "";
+                    const diff = v24 - v23;
+                    return `<tr><td>${b}</td><td>${k}</td><td class="num">${fmtIDR(v23)}</td><td class="num">${fmtIDR(v24)}</td><td class="num ${diff>=0?'text-success':'text-danger'}">${diff>=0?'+':''}${fmtIDR(diff)}</td></tr>`;
+                  }).join("");
+                }).join("")}
+                <tr style="font-weight:700;background:var(--primary);color:#fff">
+                  <td colspan="2">TOTAL ANGGOTA</td><td class="num">${fmtIDR(sumBy(pj2023,"Anggota"))}</td><td class="num">${fmtIDR(sumBy(pj2024,"Anggota"))}</td><td class="num">${fmtIDR(sumBy(pj2024,"Anggota")-sumBy(pj2023,"Anggota"))}</td>
+                </tr>
+                <tr style="font-weight:700;background:var(--primary);color:#fff">
+                  <td colspan="2">TOTAL TAD</td><td class="num">${fmtIDR(sumBy(pj2023,"TAD"))}</td><td class="num">${fmtIDR(sumBy(pj2024,"TAD"))}</td><td class="num">${fmtIDR(sumBy(pj2024,"TAD")-sumBy(pj2023,"TAD"))}</td>
+                </tr>
+                <tr style="font-weight:700;background:var(--primary);color:#fff">
+                  <td colspan="2">TOTAL KHUSUS</td><td class="num">${fmtIDR(sumBy(pj2023,"Khusus"))}</td><td class="num">${fmtIDR(sumBy(pj2024,"Khusus"))}</td><td class="num">${fmtIDR(sumBy(pj2024,"Khusus")-sumBy(pj2023,"Khusus"))}</td>
+                </tr>
+                <tr style="font-weight:700;background:var(--accent);color:var(--primary-dark)">
+                  <td colspan="2">GRAND TOTAL</td><td class="num">${fmtIDR(pj2023.reduce((s,p)=>s+p.nilai,0))}</td><td class="num">${fmtIDR(pj2024.reduce((s,p)=>s+p.nilai,0))}</td><td class="num">${fmtIDR(pj2024.reduce((s,p)=>s+p.nilai,0)-pj2023.reduce((s,p)=>s+p.nilai,0))}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grafik -->
+      <div class="tab-panel" id="tab-grafik">
+        <div class="grid-2">
+          <div class="card"><h3>SHU: 2025 vs 2026</h3><div class="chart-wrap"><canvas id="chartSHU" height="200"></canvas></div></div>
+          <div class="card"><h3>Komposisi Pendapatan 2026</h3><div class="chart-wrap"><canvas id="chartPendapatan" height="200"></canvas></div></div>
+          <div class="card"><h3>Pinjaman per Kategori (2024)</h3><div class="chart-wrap"><canvas id="chartPinjaman" height="200"></canvas></div></div>
+          <div class="card"><h3>Tren Pinjaman Bulanan 2024</h3><div class="chart-wrap"><canvas id="chartTrenPinjaman" height="200"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function switchTab(e, id){
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  e.target.classList.add("active");
+  $(id).classList.add("active");
+  // re-render charts if grafik tab
+  if (id === "tab-grafik") setTimeout(renderCharts, 50);
+}
+
+/* ---------- Page: Input Laporan (Bendahara/Admin) ---------- */
+function pageInput(){
+  if (!currentUser || !["bendahara","admin"].includes(currentUser.role)){
+    return pageGate("Input Laporan", "Halaman ini khusus untuk Bendahara &amp; Admin.");
+  }
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Input Laporan Keuangan</h2>
+      <p class="section-sub">Formulir input data oleh Bendahara — periode baru, transaksi, &amp; aktivitas</p>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(event,'in-shu')">Input SHU</button>
+        <button class="tab" onclick="switchTab(event,'in-neraca')">Input Neraca</button>
+        <button class="tab" onclick="switchTab(event,'in-pinjaman')">Input Pinjaman</button>
+        <button class="tab" onclick="switchTab(event,'in-kegiatan')">Input Kegiatan</button>
+      </div>
+
+      <div class="tab-panel active" id="in-shu">
+        <div class="card">
+          <h3>Form Input Pendapatan / Beban SHU</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Data tersimpan ke tabel <code>shu_items</code> Supabase.</p>
+          <form onsubmit="submitSHU(event)">
+            <div class="form-grid">
+              <div class="form-group"><label>Periode</label><input type="text" name="periode" placeholder="contoh: Januari - Juni 2026" required></div>
+              <div class="form-group"><label>Tipe</label><select name="tipe" required><option value="pendapatan">Pendapatan</option><option value="beban">Beban</option></select></div>
+              <div class="form-group"><label>Uraian</label><input type="text" name="uraian" placeholder="contoh: Pendapatan PPOB" required></div>
+              <div class="form-group"><label>Nilai (Rp)</label><input type="number" name="nilai" placeholder="contoh: 20667657" required></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Simpan</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="in-neraca">
+        <div class="card">
+          <h3>Form Input Post Neraca</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Data tersimpan ke tabel <code>neraca_items</code>.</p>
+          <form onsubmit="submitNeraca(event)">
+            <div class="form-grid">
+              <div class="form-group"><label>Periode</label><input type="text" name="periode" placeholder="contoh: Januari - Juni 2026" required></div>
+              <div class="form-group"><label>Sisi</label><select name="sisi" required><option value="aktiva_lancar">Aktiva Lancar</option><option value="aktiva_tetap">Aktiva Tetap</option><option value="kewajiban_jp">Kewajiban Jangka Pendek</option><option value="ekuitas">Ekuitas</option></select></div>
+              <div class="form-group"><label>Uraian</label><input type="text" name="uraian" placeholder="contoh: Kas" required></div>
+              <div class="form-group"><label>Nilai Periode Lalu (Rp)</label><input type="number" name="nilai_lalu" placeholder="contoh: 10316508"></div>
+              <div class="form-group"><label>Nilai Periode Ini (Rp)</label><input type="number" name="nilai_ini" placeholder="contoh: 4495508" required></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Simpan</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="in-pinjaman">
+        <div class="card">
+          <h3>Form Input Pinjaman Anggota</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Data tersimpan ke tabel <code>pinjaman</code>.</p>
+          <form onsubmit="submitPinjaman(event)">
+            <div class="form-grid">
+              <div class="form-group"><label>Bulan</label><select name="bulan" required>${["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"].map(b=>`<option>${b}</option>`).join("")}</select></div>
+              <div class="form-group"><label>Tahun</label><input type="number" name="tahun" value="2026" required></div>
+              <div class="form-group"><label>Kategori</label><select name="kategori" required><option>Anggota</option><option>TAD</option><option>Khusus</option></select></div>
+              <div class="form-group"><label>Nilai Pinjaman (Rp)</label><input type="number" name="nilai" placeholder="contoh: 230000000" required></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Simpan</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="in-kegiatan">
+        <div class="card">
+          <h3>Form Input Kegiatan / Pengumuman</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Akan tampil di halaman Kegiatan &amp; Beranda.</p>
+          <form onsubmit="submitKegiatan(event)">
+            <div class="form-group"><label>Tanggal</label><input type="date" name="tanggal" required></div>
+            <div class="form-group"><label>Judul</label><input type="text" name="judul" placeholder="contoh: RAT Tahunan 2026" required></div>
+            <div class="form-group"><label>Deskripsi</label><textarea name="desc" rows="3" placeholder="Ringkasan kegiatan..." required></textarea></div>
+            <button class="btn btn-primary" type="submit">Simpan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Form submission ---------- */
+async function submitSHU(e){
+  e.preventDefault();
+  const f = e.target;
+  const data = { periode:f.periode.value, tipe:f.tipe.value, uraian:f.uraian.value, nilai:Number(f.nilai.value) };
+  await saveRecord("shu_items", data, "SHU");
+  f.reset();
+}
+async function submitNeraca(e){
+  e.preventDefault();
+  const f = e.target;
+  const data = { periode:f.periode.value, sisi:f.sisi.value, uraian:f.uraian.value, nilai_lalu:Number(f.nilai_lalu.value||0), nilai_ini:Number(f.nilai_ini.value) };
+  await saveRecord("neraca_items", data, "Neraca");
+  f.reset();
+}
+async function submitPinjaman(e){
+  e.preventDefault();
+  const f = e.target;
+  const data = { bulan:f.bulan.value, tahun:Number(f.tahun.value), kategori:f.kategori.value, nilai:Number(f.nilai.value) };
+  await saveRecord("pinjaman", data, "Pinjaman");
+  f.reset();
+}
+async function submitKegiatan(e){
+  e.preventDefault();
+  const f = e.target;
+  const data = { tanggal:f.tanggal.value, judul:f.judul.value, desc:f.desc.value };
+  await saveRecord("kegiatan", data, "Kegiatan");
+  f.reset();
+}
+async function saveRecord(table, data, label){
+  if (IS_LIVE && sb){
+    const { error } = await sb.from(table).insert({ ...data, created_by: currentUser.id });
+    if (error){ toast("Gagal simpan "+label+": "+error.message, "error"); return; }
+    toast(label+" tersimpan ke Supabase.", "success");
+    // Refresh data from Supabase so new input appears immediately
+    await syncFromSupabase();
+  } else {
+    // Demo: simpan ke localStorage agar tampil di reload
+    const key = "demo_"+table;
+    const arr = JSON.parse(localStorage.getItem(key) || "[]");
+    arr.push({ ...data, id: Date.now(), created_at: new Date().toISOString() });
+    localStorage.setItem(key, JSON.stringify(arr));
+    toast(label+" tersimpan (mode demo, disimpan di browser).", "success");
+  }
+}
+
+/* ---------- Page: Kegiatan ---------- */
+function pageKegiatan(){
+  const extra = JSON.parse(localStorage.getItem("demo_kegiatan") || "[]");
+  const all = [...extra, ...DEMO.kegiatan].sort((a,b)=>new Date(b.tanggal)-new Date(a.tanggal));
+  const canInput = currentUser && ["bendahara","admin"].includes(currentUser.role);
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Kegiatan &amp; Pengumuman Koperasi</h2>
+      <p class="section-sub">Riwayat aktivitas, rapat, dan pengumuman penting</p>
+      ${canInput ? `<button class="btn btn-primary btn-sm" style="margin-bottom:16px" onclick="nav('input')">+ Input Kegiatan Baru</button>` : ""}
+      <div class="card">
+        ${all.map(k => {
+          const dt = fmtDateID(k.tanggal);
+          return `<div class="activity-item">
+            <div class="activity-date"><div class="d">${dt.d}</div><div class="m">${dt.m}</div></div>
+            <div class="activity-body">
+              <h4>${k.judul}</h4>
+              <p>${k.desc}</p>
+              <p style="font-size:11px;color:var(--muted);margin-top:4px">${dt.full}</p>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Page: Admin ---------- */
+function pageAdmin(){
+  if (!currentUser || currentUser.role !== "admin"){
+    return pageGate("Panel Admin", "Halaman ini khusus untuk Admin.");
+  }
+  // Demo users table
+  const userList = Object.entries(DEMO_USERS).map(([email,u]) => ({
+    email, role:u.role, nama:u.nama
+  }));
+  return `
+  <section class="page active">
+    <div class="container">
+      <h2 class="section-title">Panel Admin</h2>
+      <p class="section-sub">Manajemen pengguna &amp; konfigurasi sistem</p>
+      <div class="grid-3" style="margin-bottom:16px">
+        <div class="stat-card"><div class="stat-icon blue">👥</div><div><div class="val">${DEMO.profile.jumlah_anggota}</div><div class="lbl">Total Anggota</div></div></div>
+        <div class="stat-card"><div class="stat-icon green">📊</div><div><div class="val">4</div><div class="lbl">Tipe Laporan</div></div></div>
+        <div class="stat-card"><div class="stat-icon purple">🔐</div><div><div class="val">5</div><div class="lbl">Peran Pengguna</div></div></div>
+      </div>
+      <div class="card">
+        <h3>Daftar Pengguna Sistem</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Dikelola melalui tabel <code>profiles</code> di Supabase. Admin dapat menambah/mengubah peran pengguna.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nama</th><th>Email</th><th>Peran</th><th>Aksi</th></tr></thead>
+            <tbody>
+              ${userList.map(u => `<tr>
+                <td>${u.nama}</td>
+                <td>${u.email}</td>
+                <td><span class="badge badge-${u.role}">${u.role}</span></td>
+                <td><button class="btn btn-blue btn-sm" onclick="toast('Fitur edit pengguna aktif setelah Supabase terhubung','info')">Edit</button></td>
+              </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-success btn-sm" style="margin-top:12px" onclick="toast('Form tambah pengguna aktif setelah Supabase terhubung','info')">+ Tambah Pengguna</button>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>📋 Matriks Hak Akses (Role-Based)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Fitur</th><th>Anggota</th><th>Pengurus</th><th>Pengawas</th><th>Bendahara</th><th>Admin</th></tr></thead>
+            <tbody>
+              <tr><td>Lihat Profil &amp; Visi-Misi</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Lihat Laporan Keuangan</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Lihat Data Anggota (semua)</td><td>❌ (diri sendiri)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Input Laporan Keuangan</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Input Kegiatan/Pengumuman</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr>
+              <tr><td>Kelola Pengguna</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr>
+              <tr><td>Konfigurasi Sistem</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ---------- Gate ---------- */
+function pageGate(title, msg){
+  return `<section class="page active"><div class="container">
+    <div class="role-gate">
+      <h3>🔒 ${title}</h3>
+      <p>${msg}</p>
+      <button class="btn btn-primary" onclick="openLogin()">Masuk</button>
+    </div>
+  </div></section>`;
+}
+
+/* ---------- Charts ---------- */
+let chartInstances = {};
+function destroyCharts(){
+  Object.values(chartInstances).forEach(c => { try { c.destroy(); } catch(e){} });
+  chartInstances = {};
+}
+function renderCharts(){
+  destroyCharts();
+  if (typeof Chart === "undefined") return;
+  const shu = DEMO.shu;
+
+  // Beranda SHU comparison
+  if ($("chartBerandaSHU")){
+    chartInstances.bShu = new Chart($("chartBerandaSHU"), {
+      type:"bar",
+      data:{ labels:["Pendapatan","Beban","SHU"], datasets:[
+        {label:"Jan–Jun 2025", data:[shu.total_pendapatan_lalu, Math.abs(shu.total_beban_lalu), shu.shu_lalu], backgroundColor:"#94a3b8"},
+        {label:"Jan–Jun 2026", data:[shu.total_pendapatan_ini, Math.abs(shu.total_beban_ini), shu.shu_ini], backgroundColor:"#1e3a8a"}
+      ]},
+      options:{ responsive:true, plugins:{ legend:{position:"bottom"} }, scales:{ y:{ ticks:{ callback:v=>"Rp "+(v/1000000).toFixed(0)+"jt" } } } }
+    });
+  }
+
+  // Usaha distribution
+  if ($("chartUsaha")){
+    chartInstances.usaha = new Chart($("chartUsaha"), {
+      type:"doughnut",
+      data:{ labels: shu.pendapatan.map(p=>p.uraian.replace("Pendapatan ","").replace("Pendapatan Keuntungan ","Keunt. ")), datasets:[{ data: shu.pendapatan.map(p=>p.tahun_ini), backgroundColor:["#1e3a8a","#2563eb","#0891b2","#16a34a","#facc15","#f59e0b","#dc2626","#7c3aed"] }] },
+      options:{ responsive:true, plugins:{ legend:{position:"right", labels:{boxWidth:12, font:{size:11}}} } }
+    });
+  }
+
+  // Laporan: SHU bar
+  if ($("chartSHU")){
+    chartInstances.shu = new Chart($("chartSHU"), {
+      type:"bar",
+      data:{ labels:["Pendapatan","Beban","SHU Bersih"], datasets:[
+        {label:"2025", data:[shu.total_pendapatan_lalu, Math.abs(shu.total_beban_lalu), shu.shu_lalu], backgroundColor:"#94a3b8"},
+        {label:"2026", data:[shu.total_pendapatan_ini, Math.abs(shu.total_beban_ini), shu.shu_ini], backgroundColor:"#1e3a8a"}
+      ]},
+      options:{ responsive:true, plugins:{legend:{position:"bottom"}}, scales:{y:{ticks:{callback:v=>"Rp "+(v/1000000).toFixed(0)+"jt"}}} }
+    });
+  }
+  // Pendapatan pie
+  if ($("chartPendapatan")){
+    chartInstances.pend = new Chart($("chartPendapatan"), {
+      type:"pie",
+      data:{ labels: shu.pendapatan.map(p=>p.uraian.replace("Pendapatan ","")), datasets:[{data:shu.pendapatan.map(p=>p.tahun_ini), backgroundColor:["#1e3a8a","#2563eb","#0891b2","#16a34a","#facc15","#f59e0b","#dc2626","#7c3aed"]}] },
+      options:{ responsive:true, plugins:{legend:{position:"right", labels:{boxWidth:10, font:{size:10}}}} }
+    });
+  }
+  // Pinjaman per kategori
+  if ($("chartPinjaman")){
+    const pj24 = DEMO.pinjaman.filter(p=>p.tahun===2024);
+    const sum = k => pj24.filter(p=>p.kategori===k).reduce((s,p)=>s+p.nilai,0);
+    chartInstances.pj = new Chart($("chartPinjaman"), {
+      type:"bar",
+      data:{ labels:["Anggota","TAD","Khusus"], datasets:[{label:"Total 2024", data:[sum("Anggota"),sum("TAD"),sum("Khusus")], backgroundColor:["#1e3a8a","#facc15","#16a34a"]}] },
+      options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>"Rp "+(v/1000000).toFixed(0)+"jt"}}} }
+    });
+  }
+  // Tren pinjaman bulanan
+  if ($("chartTrenPinjaman")){
+    const bulan = ["Januari","Februari","Maret"];
+    const pj24 = DEMO.pinjaman.filter(p=>p.tahun===2024);
+    const byKat = (k) => bulan.map(b => pj24.filter(p=>p.bulan===b&&p.kategori===k).reduce((s,p)=>s+p.nilai,0));
+    chartInstances.tren = new Chart($("chartTrenPinjaman"), {
+      type:"line",
+      data:{ labels:bulan, datasets:[
+        {label:"Anggota", data:byKat("Anggota"), borderColor:"#1e3a8a", backgroundColor:"rgba(30,58,138,.1)", fill:true},
+        {label:"TAD", data:byKat("TAD"), borderColor:"#facc15", backgroundColor:"rgba(250,204,21,.1)", fill:true},
+        {label:"Khusus", data:byKat("Khusus"), borderColor:"#16a34a", backgroundColor:"rgba(22,163,74,.1)", fill:true}
+      ]},
+      options:{ responsive:true, plugins:{legend:{position:"bottom"}}, scales:{y:{ticks:{callback:v=>"Rp "+(v/1000000).toFixed(0)+"jt"}}} }
+    });
+  }
+}
+
+/* ---------- Init ---------- */
+/* ---------- Live data sync from Supabase (with DEMO fallback) ---------- */
+let liveSynced = false;
+async function syncFromSupabase(){
+  if (!IS_LIVE || !sb) return;
+  const fetchTable = async (name) => {
+    try {
+      const { data, error } = await sb.from(name).select("*").order("id", { ascending: true });
+      if (error) return null;
+      return data;
+    } catch(e){ return null; }
+  };
+  const [anggota, kegiatan, shuItems, neracaItems, pinjaman, settings] = await Promise.all([
+    fetchTable("anggota"), fetchTable("kegiatan"), fetchTable("shu_items"),
+    fetchTable("neraca_items"), fetchTable("pinjaman"), fetchTable("settings")
+  ]);
+  let changed = false;
+  // ANGGOTA
+  if (anggota && anggota.length){
+    DEMO.anggota = anggota.map(a => ({
+      id:a.id, nama:a.nama, unit:a.unit||"", jabatan:a.jabatan||"Anggota",
+      simpanan_pokok:Number(a.simpanan_pokok)||0, simpanan_wajib:Number(a.simpanan_wajib)||0,
+      status:a.status||"Aktif"
+    }));
+    changed = true;
+  }
+  // KEGIATAN (merge with demo so demo items still show)
+  if (kegiatan && kegiatan.length){
+    const demoTitles = new Set(DEMO.kegiatan.map(k=>k.judul));
+    const live = kegiatan.map(k => ({ tanggal:k.tanggal, judul:k.judul, desc:k.deskripsi||k.desc||"" }))
+      .filter(k => !demoTitles.has(k.judul));
+    DEMO.kegiatan = [...live, ...DEMO.kegiatan].sort((a,b)=>new Date(b.tanggal)-new Date(a.tanggal));
+    changed = true;
+  }
+  // SHU ITEMS
+  if (shuItems && shuItems.length){
+    const pend = shuItems.filter(s=>s.tipe==="pendapatan");
+    const beb = shuItems.filter(s=>s.tipe==="beban");
+    if (pend.length) DEMO.shu.pendapatan = pend.map(s=>({uraian:s.uraian, tahun_lalu:Number(s.tahun_lalu)||0, tahun_ini:Number(s.nilai)||0}));
+    if (beb.length) DEMO.shu.beban = beb.map(s=>({uraian:s.uraian, tahun_lalu:Number(s.tahun_lalu)||0, tahun_ini:Number(s.nilai)||0}));
+    DEMO.shu.total_pendapatan_ini = DEMO.shu.pendapatan.reduce((s,p)=>s+p.tahun_ini,0);
+    DEMO.shu.total_pendapatan_lalu = DEMO.shu.pendapatan.reduce((s,p)=>s+p.tahun_lalu,0);
+    DEMO.shu.total_beban_ini = DEMO.shu.beban.reduce((s,p)=>s+p.tahun_ini,0);
+    DEMO.shu.total_beban_lalu = DEMO.shu.beban.reduce((s,p)=>s+p.tahun_lalu,0);
+    DEMO.shu.shu_ini = DEMO.shu.total_pendapatan_ini + DEMO.shu.total_beban_ini;
+    DEMO.shu.shu_lalu = DEMO.shu.total_pendapatan_lalu + DEMO.shu.total_beban_lalu;
+    changed = true;
+  }
+  // NERACA ITEMS
+  if (neracaItems && neracaItems.length){
+    const bySisi = (sisi) => neracaItems.filter(n=>n.sisi===sisi).sort((a,b)=>(a.urutan||0)-(b.urutan||0))
+      .map(n=>({uraian:n.uraian, lalu:Number(n.nilai_lalu)||0, ini:Number(n.nilai_ini)||0}));
+    DEMO.neraca.aktiva_lancar = bySisi("aktiva_lancar");
+    DEMO.neraca.aktiva_tetap = bySisi("aktiva_tetap");
+    DEMO.neraca.kewajiban_jp = bySisi("kewajiban_jp");
+    DEMO.neraca.ekuitas = bySisi("ekuitas");
+    DEMO.neraca.total_aktiva_lancar_lalu = DEMO.neraca.aktiva_lancar.reduce((s,n)=>s+n.lalu,0);
+    DEMO.neraca.total_aktiva_lancar_ini = DEMO.neraca.aktiva_lancar.reduce((s,n)=>s+n.ini,0);
+    DEMO.neraca.total_aktiva_tetap_lalu = DEMO.neraca.aktiva_tetap.reduce((s,n)=>s+n.lalu,0);
+    DEMO.neraca.total_aktiva_tetap_ini = DEMO.neraca.aktiva_tetap.reduce((s,n)=>s+n.ini,0);
+    DEMO.neraca.total_aktiva_lalu = DEMO.neraca.total_aktiva_lancar_lalu + DEMO.neraca.total_aktiva_tetap_lalu;
+    DEMO.neraca.total_aktiva_ini = DEMO.neraca.total_aktiva_lancar_ini + DEMO.neraca.total_aktiva_tetap_ini;
+    DEMO.neraca.total_kewajiban_lalu = DEMO.neraca.kewajiban_jp.reduce((s,n)=>s+n.lalu,0);
+    DEMO.neraca.total_kewajiban_ini = DEMO.neraca.kewajiban_jp.reduce((s,n)=>s+n.ini,0);
+    DEMO.neraca.total_ekuitas_lalu = DEMO.neraca.ekuitas.reduce((s,n)=>s+n.lalu,0);
+    DEMO.neraca.total_ekuitas_ini = DEMO.neraca.ekuitas.reduce((s,n)=>s+n.ini,0);
+    changed = true;
+  }
+  // PINJAMAN
+  if (pinjaman && pinjaman.length){
+    DEMO.pinjaman = pinjaman.map(p=>({bulan:p.bulan, kategori:p.kategori, nilai:Number(p.nilai)||0, tahun:Number(p.tahun)}));
+    changed = true;
+  }
+  // SETTINGS → profile
+  if (settings && settings.length){
+    const map = {}; settings.forEach(s => map[s.key]=s.value);
+    if (map.nama_koperasi) DEMO.profile.nama = map.nama_koperasi;
+    if (map.jumlah_anggota) DEMO.profile.jumlah_anggota = Number(map.jumlah_anggota);
+    if (map.periode_pengurus) DEMO.profile.periode_pengurus = map.periode_pengurus;
+    changed = true;
+  }
+  liveSynced = true;
+  if (changed){
+    // re-render current page to reflect new data
+    const active = document.querySelector("nav.main a.active");
+    if (active) nav(active.dataset.page);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  updateUserUI();
+  nav("beranda");
+  // Close modal on overlay click
+  $("loginModal").addEventListener("click", (e) => { if (e.target === $("loginModal")) closeLogin(); });
+  // Live mode: sync data from Supabase (tables may not exist yet — graceful fallback to DEMO)
+  if (IS_LIVE && sb){
+    syncFromSupabase();
+    sb.auth.getSession().then(async ({ data }) => {
+      if (data.session){
+        const { data: prof } = await sb.from("profiles").select("*").eq("id", data.session.user.id).single();
+        currentUser = { id: data.session.user.id, email: data.session.user.email, role: prof?.role||"anggota", nama: prof?.nama||data.session.user.email };
+        updateUserUI();
+        nav("beranda");
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>
